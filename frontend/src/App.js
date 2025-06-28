@@ -105,11 +105,45 @@ const EmailTemplateGenerator = () => {
     return templates[selectedTemplate];
   };
 
-  const copyToClipboard = () => {
+  const copyToClipboard = async () => {
     const html = generateEmailHTML();
-    navigator.clipboard.writeText(html).then(() => {
-      alert('Email signature HTML copied to clipboard!');
-    });
+    
+    // Reset copy success state
+    setCopySuccess(false);
+    
+    try {
+      // Try modern clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(html);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 3000);
+      } else {
+        // Fallback method for older browsers or non-HTTPS
+        const textArea = document.createElement('textarea');
+        textArea.value = html;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        const successful = document.execCommand('copy');
+        document.body.removeChild(textArea);
+        
+        if (successful) {
+          setCopySuccess(true);
+          setTimeout(() => setCopySuccess(false), 3000);
+        } else {
+          throw new Error('Copy command was unsuccessful');
+        }
+      }
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      // Final fallback - show the code and ask user to copy manually
+      setShowCode(true);
+      alert('Unable to copy automatically. The HTML code is now displayed - please select and copy it manually.');
+    }
   };
 
   const templates = [
