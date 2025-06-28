@@ -265,36 +265,6 @@ const EmailTemplateGenerator = () => {
 
             {/* Form Fields */}
             <div className="space-y-6">
-              {/* Profile Picture Upload */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Profile Picture
-                </label>
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    {formData.profileImage ? (
-                      <img
-                        src={formData.profileImage}
-                        alt="Profile"
-                        className="w-16 h-16 rounded-full object-cover border-2 border-gray-200"
-                      />
-                    ) : (
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
-                        {formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex-1">
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                    />
-                    <p className="mt-1 text-xs text-gray-500">PNG, JPG up to 2MB. Will be embedded as base64.</p>
-                  </div>
-                </div>
-              </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
