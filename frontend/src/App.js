@@ -84,12 +84,9 @@ const EmailTemplateGenerator = () => {
       <table border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td style="vertical-align: top; padding-right: 20px;">
-            ${formData.profileImage ? 
-              `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">` :
-              `<div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
-                ${formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-              </div>`
-            }
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
+              ${formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+            </div>
           </td>
           <td style="vertical-align: top;">
             <div style="color: #1F2937; font-size: 18px; font-weight: bold; margin-bottom: 4px;">
@@ -116,10 +113,6 @@ const EmailTemplateGenerator = () => {
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: 'Times New Roman', serif; font-size: 14px; line-height: 1.5; max-width: 500px; border: 1px solid #E5E7EB;">
   <tr>
     <td style="padding: 20px; background-color: #F9FAFB;">
-      ${formData.profileImage ? 
-        `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; float: left; margin-right: 15px; margin-bottom: 10px;">` : 
-        ''
-      }
       <div style="color: #111827; font-size: 20px; font-weight: bold; margin-bottom: 6px;">
         ${formData.name}
       </div>
@@ -129,7 +122,7 @@ const EmailTemplateGenerator = () => {
       <div style="color: #374151; font-size: 14px; font-weight: 600; margin-bottom: 15px;">
         ${formData.company}
       </div>
-      <hr style="border: 0; height: 1px; background-color: #D1D5DB; margin: 15px 0; clear: both;">
+      <hr style="border: 0; height: 1px; background-color: #D1D5DB; margin: 15px 0;">
       <div style="font-size: 12px; color: #4B5563; line-height: 1.6;">
         ${formData.email ? `<div><strong>Email:</strong> <a href="mailto:${formData.email}" style="color: inherit; text-decoration: none;">${formData.email}</a></div>` : ''}
         ${formData.phone ? `<div><strong>Phone:</strong> ${formData.phone}</div>` : ''}
@@ -145,17 +138,13 @@ const EmailTemplateGenerator = () => {
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.4; max-width: 400px;">
   <tr>
     <td style="padding: 15px 0;">
-      ${formData.profileImage ? 
-        `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; float: left; margin-right: 10px;">` : 
-        ''
-      }
       <div style="color: #000000; font-size: 16px; font-weight: 600; margin-bottom: 2px;">
         ${formData.name}
       </div>
       <div style="color: #666666; font-size: 13px; margin-bottom: 8px;">
         ${formData.title} | ${formData.company}
       </div>
-      <div style="font-size: 12px; color: #888888; clear: both;">
+      <div style="font-size: 12px; color: #888888;">
         ${[
           formData.email ? `<a href="mailto:${formData.email}" style="color: inherit; text-decoration: none;">${formData.email}</a>` : '',
           formData.phone || '',
