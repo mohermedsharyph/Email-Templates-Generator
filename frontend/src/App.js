@@ -344,8 +344,25 @@ const EmailTemplateGenerator = () => {
 
             {showCode ? (
               <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto max-h-96">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-gray-400">HTML Code (Select All & Copy)</span>
+                  <button
+                    onClick={() => {
+                      const codeElement = document.querySelector('#html-code');
+                      if (codeElement) {
+                        const range = document.createRange();
+                        range.selectNode(codeElement);
+                        window.getSelection().removeAllRanges();
+                        window.getSelection().addRange(range);
+                      }
+                    }}
+                    className="text-xs bg-gray-700 hover:bg-gray-600 text-white px-2 py-1 rounded"
+                  >
+                    Select All
+                  </button>
+                </div>
                 <pre className="text-sm">
-                  <code>{generateEmailHTML()}</code>
+                  <code id="html-code">{generateEmailHTML()}</code>
                 </pre>
               </div>
             ) : (
