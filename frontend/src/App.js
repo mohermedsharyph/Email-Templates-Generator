@@ -81,30 +81,19 @@ const EmailTemplateGenerator = () => {
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; max-width: 500px;">
   <tr>
     <td style="padding: 20px 0; border-top: 3px solid #3B82F6;">
-      <table border="0" cellpadding="0" cellspacing="0">
-        <tr>
-          <td style="vertical-align: top; padding-right: 20px;">
-            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
-              ${formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-            </div>
-          </td>
-          <td style="vertical-align: top;">
-            <div style="color: #1F2937; font-size: 18px; font-weight: bold; margin-bottom: 4px;">
-              ${formData.name}
-            </div>
-            <div style="color: #3B82F6; font-size: 14px; font-weight: 600; margin-bottom: 8px;">
-              ${formData.title}
-            </div>
-            <div style="color: #6B7280; font-size: 14px; margin-bottom: 12px;">
-              ${formData.company}
-            </div>
-            <div style="font-size: 13px; color: #4B5563;">
-              ${renderContactInfo()}
-            </div>
-            ${renderSocialLinks()}
-          </td>
-        </tr>
-      </table>
+      <div style="color: #1F2937; font-size: 18px; font-weight: bold; margin-bottom: 4px;">
+        ${formData.name}
+      </div>
+      <div style="color: #3B82F6; font-size: 14px; font-weight: 600; margin-bottom: 8px;">
+        ${formData.title}
+      </div>
+      <div style="color: #6B7280; font-size: 14px; margin-bottom: 12px;">
+        ${formData.company}
+      </div>
+      <div style="font-size: 13px; color: #4B5563;">
+        ${renderContactInfo()}
+      </div>
+      ${renderSocialLinks()}
     </td>
   </tr>
 </table>`,
