@@ -10,7 +10,6 @@ const EmailTemplateGenerator = () => {
     email: 'john.doe@techcorp.com',
     website: 'www.techcorp.com',
     address: '123 Tech Street, San Francisco, CA 94105',
-    profileImage: '',
     linkedinUrl: '',
     twitterUrl: '',
     instagramUrl: '',
