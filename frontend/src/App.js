@@ -14,6 +14,8 @@ const EmailTemplateGenerator = () => {
 
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
   const [showCode, setShowCode] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const textAreaRef = useRef(null);
 
   const handleInputChange = (e) => {
     setFormData({
