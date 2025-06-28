@@ -9,7 +9,12 @@ const EmailTemplateGenerator = () => {
     phone: '+1 (555) 123-4567',
     email: 'john.doe@techcorp.com',
     website: 'www.techcorp.com',
-    address: '123 Tech Street, San Francisco, CA 94105'
+    address: '123 Tech Street, San Francisco, CA 94105',
+    profileImage: '',
+    linkedinUrl: '',
+    twitterUrl: '',
+    instagramUrl: '',
+    substackUrl: ''
   });
 
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
