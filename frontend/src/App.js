@@ -331,9 +331,13 @@ const EmailTemplateGenerator = () => {
                 </button>
                 <button
                   onClick={copyToClipboard}
-                  className="px-6 py-2 bg-blue-500 text-white rounded-lg font-medium hover:bg-blue-600 transition-colors"
+                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                    copySuccess 
+                      ? 'bg-green-500 text-white' 
+                      : 'bg-blue-500 text-white hover:bg-blue-600'
+                  }`}
                 >
-                  Copy HTML
+                  {copySuccess ? '✓ Copied!' : 'Copy HTML'}
                 </button>
               </div>
             </div>
