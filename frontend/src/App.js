@@ -44,6 +44,53 @@ const EmailTemplateGenerator = () => {
   };
 
   const generateEmailHTML = () => {
+    // Helper function to render contact info with conditional emojis
+    const renderContactInfo = () => {
+      const contactItems = [];
+      
+      if (formData.email) {
+        contactItems.push(`<div style="margin-bottom: 3px;">📧 <a href="mailto:${formData.email}" style="color: inherit; text-decoration: none;">${formData.email}</a></div>`);
+      }
+      
+      if (formData.phone) {
+        contactItems.push(`<div style="margin-bottom: 3px;">📱 ${formData.phone}</div>`);
+      }
+      
+      if (formData.website) {
+        const websiteUrl = formData.website.startsWith('http') ? formData.website : `https://${formData.website}`;
+        contactItems.push(`<div style="margin-bottom: 3px;">🌐 <a href="${websiteUrl}" style="color: inherit; text-decoration: none;">${formData.website}</a></div>`);
+      }
+      
+      if (formData.address) {
+        contactItems.push(`<div>📍 ${formData.address}</div>`);
+      }
+      
+      return contactItems.join('');
+    };
+
+    // Helper function to render social media links
+    const renderSocialLinks = () => {
+      const socialItems = [];
+      
+      if (formData.linkedinUrl) {
+        socialItems.push(`<a href="${formData.linkedinUrl}" style="color: #0077B5; text-decoration: none; margin-right: 10px;">LinkedIn</a>`);
+      }
+      
+      if (formData.twitterUrl) {
+        socialItems.push(`<a href="${formData.twitterUrl}" style="color: #1DA1F2; text-decoration: none; margin-right: 10px;">X/Twitter</a>`);
+      }
+      
+      if (formData.instagramUrl) {
+        socialItems.push(`<a href="${formData.instagramUrl}" style="color: #E4405F; text-decoration: none; margin-right: 10px;">Instagram</a>`);
+      }
+      
+      if (formData.substackUrl) {
+        socialItems.push(`<a href="${formData.substackUrl}" style="color: #FF6719; text-decoration: none; margin-right: 10px;">Substack</a>`);
+      }
+      
+      return socialItems.length > 0 ? `<div style="margin-top: 8px; font-size: 12px;">${socialItems.join('')}</div>` : '';
+    };
+
     const templates = {
       modern: `
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.4; max-width: 500px;">
@@ -52,9 +99,12 @@ const EmailTemplateGenerator = () => {
       <table border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td style="vertical-align: top; padding-right: 20px;">
-            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
-              ${formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-            </div>
+            ${formData.profileImage ? 
+              `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover;">` :
+              `<div style="width: 80px; height: 80px; background: linear-gradient(135deg, #3B82F6, #1D4ED8); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold;">
+                ${formData.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+              </div>`
+            }
           </td>
           <td style="vertical-align: top;">
             <div style="color: #1F2937; font-size: 18px; font-weight: bold; margin-bottom: 4px;">
@@ -67,11 +117,9 @@ const EmailTemplateGenerator = () => {
               ${formData.company}
             </div>
             <div style="font-size: 13px; color: #4B5563;">
-              <div style="margin-bottom: 3px;">📧 ${formData.email}</div>
-              <div style="margin-bottom: 3px;">📱 ${formData.phone}</div>
-              <div style="margin-bottom: 3px;">🌐 ${formData.website}</div>
-              <div>📍 ${formData.address}</div>
+              ${renderContactInfo()}
             </div>
+            ${renderSocialLinks()}
           </td>
         </tr>
       </table>
@@ -83,6 +131,10 @@ const EmailTemplateGenerator = () => {
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: 'Times New Roman', serif; font-size: 14px; line-height: 1.5; max-width: 500px; border: 1px solid #E5E7EB;">
   <tr>
     <td style="padding: 20px; background-color: #F9FAFB;">
+      ${formData.profileImage ? 
+        `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; float: left; margin-right: 15px; margin-bottom: 10px;">` : 
+        ''
+      }
       <div style="color: #111827; font-size: 20px; font-weight: bold; margin-bottom: 6px;">
         ${formData.name}
       </div>
@@ -92,13 +144,14 @@ const EmailTemplateGenerator = () => {
       <div style="color: #374151; font-size: 14px; font-weight: 600; margin-bottom: 15px;">
         ${formData.company}
       </div>
-      <hr style="border: 0; height: 1px; background-color: #D1D5DB; margin: 15px 0;">
+      <hr style="border: 0; height: 1px; background-color: #D1D5DB; margin: 15px 0; clear: both;">
       <div style="font-size: 12px; color: #4B5563; line-height: 1.6;">
-        <div><strong>Email:</strong> ${formData.email}</div>
-        <div><strong>Phone:</strong> ${formData.phone}</div>
-        <div><strong>Website:</strong> ${formData.website}</div>
-        <div><strong>Address:</strong> ${formData.address}</div>
+        ${formData.email ? `<div><strong>Email:</strong> <a href="mailto:${formData.email}" style="color: inherit; text-decoration: none;">${formData.email}</a></div>` : ''}
+        ${formData.phone ? `<div><strong>Phone:</strong> ${formData.phone}</div>` : ''}
+        ${formData.website ? `<div><strong>Website:</strong> <a href="${formData.website.startsWith('http') ? formData.website : `https://${formData.website}`}" style="color: inherit; text-decoration: none;">${formData.website}</a></div>` : ''}
+        ${formData.address ? `<div><strong>Address:</strong> ${formData.address}</div>` : ''}
       </div>
+      ${renderSocialLinks()}
     </td>
   </tr>
 </table>`,
@@ -107,15 +160,24 @@ const EmailTemplateGenerator = () => {
 <table border="0" cellpadding="0" cellspacing="0" style="font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; line-height: 1.4; max-width: 400px;">
   <tr>
     <td style="padding: 15px 0;">
+      ${formData.profileImage ? 
+        `<img src="${formData.profileImage}" alt="${formData.name}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; float: left; margin-right: 10px;">` : 
+        ''
+      }
       <div style="color: #000000; font-size: 16px; font-weight: 600; margin-bottom: 2px;">
         ${formData.name}
       </div>
       <div style="color: #666666; font-size: 13px; margin-bottom: 8px;">
         ${formData.title} | ${formData.company}
       </div>
-      <div style="font-size: 12px; color: #888888;">
-        ${formData.email} | ${formData.phone} | ${formData.website}
+      <div style="font-size: 12px; color: #888888; clear: both;">
+        ${[
+          formData.email ? `<a href="mailto:${formData.email}" style="color: inherit; text-decoration: none;">${formData.email}</a>` : '',
+          formData.phone || '',
+          formData.website ? `<a href="${formData.website.startsWith('http') ? formData.website : `https://${formData.website}`}" style="color: inherit; text-decoration: none;">${formData.website}</a>` : ''
+        ].filter(Boolean).join(' | ')}
       </div>
+      ${renderSocialLinks()}
     </td>
   </tr>
 </table>`
