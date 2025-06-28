@@ -29,6 +29,20 @@ const EmailTemplateGenerator = () => {
     });
   };
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFormData({
+          ...formData,
+          profileImage: e.target.result
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const generateEmailHTML = () => {
     const templates = {
       modern: `
